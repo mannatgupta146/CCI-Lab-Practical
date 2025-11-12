@@ -13,7 +13,7 @@ This guide was built to be a fast, all-in-one resource for last-minute revision,
 
 This project is perfectly set up to be hosted for free on **GitHub Pages**. Once you enable it, your live guide will be available at this URL:
 
-**[https://mannatgupta146.github.io/CCI-Lab-Practical.html](https://mannatgupta146.github.io/CCI-Lab-Practical.html)**
+**[https://mannatgupta146.github.io/CCI-Lab-Practical/](https://mannatgupta146.github.io/CCI-Lab-Practical/)**
 
 ### How to Enable GitHub Pages:
 1.  Go to your repository's **Settings**.

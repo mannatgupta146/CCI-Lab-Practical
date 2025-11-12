@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Forensics Final Revision</title>
+    <title>Digital Forensics Lab Guide</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -22,7 +22,7 @@
             overflow: hidden;
         }
         header {
-            background-color: #004a99; /* Deep blue header */
+            background-color: #003366; /* Dark professional blue */
             color: white;
             padding: 25px 30px;
             text-align: center;
@@ -32,26 +32,27 @@
             font-size: 2em;
         }
         .content {
-            padding: 30px;
+            padding: 10px 30px 30px 30px;
         }
         details {
-            background-color: #f9f9f9;
+            background-color: #ffffff;
             border: 1px solid #ddd;
             border-radius: 8px;
             margin-bottom: 12px;
             transition: background-color 0.2s;
         }
         details:hover {
-            background-color: #f1f1f1;
+            background-color: #f9f9f9;
         }
         summary {
-            font-size: 1.25em;
+            font-size: 1.3em; /* Larger title */
             font-weight: 600;
             cursor: pointer;
             padding: 20px;
             list-style: none;
             display: flex;
             align-items: center;
+            color: #003366;
         }
         summary::-webkit-details-marker {
             display: none;
@@ -60,7 +61,7 @@
             content: '►';
             margin-right: 12px;
             font-size: 0.8em;
-            color: #004a99;
+            color: #0056b3;
             transition: transform 0.2s;
         }
         details[open] summary {
@@ -73,25 +74,44 @@
             padding: 20px 20px 20px 42px;
         }
         .details-content h3 {
-            color: #004a99;
+            color: #003366;
             border-bottom: 2px solid #e0e0e0;
             padding-bottom: 5px;
-            margin-top: 15px;
-            font-size: 1.3em;
+            margin-top: 25px;
+            font-size: 1.25em;
         }
-        ul {
+        .details-content h4 {
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        ul, ol {
             padding-left: 20px;
-            list-style-type: '🔹 ';
         }
         li {
-            margin-bottom: 8px;
-            padding-left: 5px;
+            margin-bottom: 10px;
         }
         code {
             background-color: #e4e4e4;
             padding: 2px 5px;
             border-radius: 4px;
             font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        }
+        .tool-description, .key-concepts, .output-section, .objective-section {
+            background-color: #f9f9f9;
+            border: 1px solid #e0e0e0;
+            border-left: 5px solid #0056b3;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .key-concepts ul {
+            list-style-type: '🔑 ';
+            padding-left: 25px;
+        }
+        .output-section ul {
+            list-style-type: '✅ ';
+            padding-left: 25px;
         }
         .github-link {
             text-align: center;
@@ -120,7 +140,7 @@
 
     <div class="container">
         <header>
-            <h1>Digital Forensics Final Revision</h1>
+            <h1>Digital Forensics Lab Guide</h1>
         </header>
 
         <div class="content">
@@ -128,305 +148,639 @@
             <details>
                 <summary>Practical 1: Network Traffic Analysis (Wireshark)</summary>
                 <div class="details-content">
-                    <h3>How-To: Network Traffic Analysis</h3>
-                    <ul>
-                        <li><b>Purpose:</b> To capture and analyze live network traffic — see how data packets move between your system and the internet.</li>
-                        <li><b>Software Used:</b> Wireshark, Web Browser</li>
-                        <li><b>How to Perform:</b>
-                            <ol>
-                                <li>Open Wireshark → select your active network interface (Wi-Fi/Ethernet).</li>
-                                <li>Click Start Capture.</li>
-                                <li>Visit a few websites (e.g., google.com, example.com).</li>
-                                <li>Stop capture and use filters like: <code>http</code>, <code>dns</code>, <code>tcp</code>.</li>
-                                <li>Observe source/destination IP, port numbers, and protocols.</li>
-                            </ol>
-                        </li>
-                        <li><b>Output:</b> List of captured packets showing protocols (HTTP, TCP, DNS), IP addresses, and detailed info per packet.</li>
-                    </ul>
+                    
+                    <div class="objective-section">
+                        <h3>Objective</h3>
+                        <p>To capture, analyze, and interpret network traffic using Wireshark, enhancing understanding of network protocols and identifying potential anomalies.</p>
+                    </div>
 
-                    <h3>🧩 Important Terms & Tools</h3>
-                    <ul>
-                        <li><b>Packet, Protocol (TCP, UDP, HTTP, DNS)</b></li>
-                        <li><b>TCP 3-Way Handshake (SYN, SYN-ACK, ACK)</b></li>
-                        <li><b>DNS Query, HTTP GET/POST</b></li>
-                        <li><b>IP Address (Source/Destination), Port Number (80, 443)</b></li>
-                        <li><b>🧰 Software:</b> Wireshark (Packet capturing and analysis), Web Browser (To generate traffic).</li>
-                    </ul>
+                    <h3>Tools Explained</h3>
+                    <div class="tool-description">
+                        <h4>Wireshark</h4>
+                        <p>This is the main tool. It's a "network protocol analyzer" (or "packet sniffer"). It captures all network data passing through your computer's network card (Wi-Fi or Ethernet) and displays it in a human-readable format. You use it to see exactly what your computer is saying to the internet.</p>
+                        <h4>Npcap / WinPcap</h4>
+                        <p>This is the driver that Wireshark uses to actually *capture* the packets. You usually install it along with Wireshark. You don't interact with it directly.</p>
+                    </div>
+
+                    <h3>Detailed Procedure</h3>
+                    <ol>
+                        <li><b>Install Wireshark:</b> Download and install Wireshark from its official website (wireshark.org). Follow the installation instructions, ensuring you also install Npcap (or WinPcap).</li>
+                        <li><b>Open Wireshark:</b> Launch Wireshark. You will see a list of available network interfaces.</li>
+                        <li><b>Select Network Interface:</b> Identify your active network interface (e.g., "Wi-Fi" or "Ethernet"). Double-click on it to start capturing. </li>
+                        <li><b>Start Capture:</b> Wireshark will immediately begin capturing all network traffic.</li>
+                        <li><b>Perform Network Activity:</b> While Wireshark is capturing, open your web browser and:
+                            <ul>
+                                <li>Visit a website (e.g., google.com, example.com).</li>
+                                <li>Perform a search.</li>
+                            </ul>
+                        </li>
+                        <li><b>Stop Capture:</b> Go back to Wireshark and click the red square "Stop" button.</li>
+                        <li><b>Analyze DNS:</b> In the "Filter" bar, type <code>dns</code> and press Enter. Find a DNS query from your computer. Select it and look in the "Packet Details" pane to see what domain was queried.</li>
+                        <li><b>Analyze TCP Handshake:</b> Clear the filter. Type <code>tcp</code>. Look for the three-packet sequence: <b>SYN</b>, <b>SYN-ACK</b>, <b>ACK</b>. This is the 3-way handshake. </li>
+                        <li><b>Analyze HTTP Traffic:</b> Clear the filter. Type <code>http</code>. Find an HTTP GET request. Right-click it and select "Follow" > "TCP Stream". This will show you the unencrypted web page data.</li>
+                    </ol>
+
+                    <h3>Key Concepts & Terms</h3>
+                    <div class="key-concepts">
+                        <ul>
+                            <li><b>Packet:</b> The smallest unit of data on a network.</li>
+                            <li><b>Protocol:</b> Rules for communication (e.g., TCP, UDP, HTTP, DNS).</li>
+                            <li><b>TCP 3-Way Handshake:</b> The `SYN`, `SYN-ACK`, `ACK` process used to establish a reliable connection.</li>
+                            <li><b>Display Filter:</b> The filter bar in Wireshark used to *find* packets *after* they are captured (e.g., `http`).</li>
+                            <li><b>IP Address:</b> The "street address" for a device on the internet.</li>
+                        </ul>
+                    </div>
+
+                    <h3>Expected Output</h3>
+                    <div class="output-section">
+                        <ul>
+                            <li>Captured network packets in Wireshark.</li>
+                            <li>Identification of Source/Destination IP addresses and Port numbers.</li>
+                            <li>Analysis of protocols like HTTP (GET requests) and DNS (queries).</li>
+                            <li>A clear view of the TCP three-way handshake.</li>
+                        </ul>
+                    </div>
                 </div>
             </details>
 
             <details>
-                <summary>Practical 2: Virtualized Environment (VirtualBox)</summary>
+                <summary>Practical 2: Virtualized Environment Setup</summary>
                 <div class="details-content">
-                    <h3>How-To: Virtualized Environment</h3>
-                    <ul>
-                        <li><b>Purpose:</b> To create and manage multiple virtual machines (VMs) on one system — showing how virtualization helps in server consolidation.</li>
-                        <li><b>Software Used:</b> Oracle VirtualBox or VMware Workstation, Optional Pre-configured OVA/ISO images (Ubuntu, CentOS)</li>
-                        <li><b>How to Perform:</b>
-                            <ol>
-                                <li>Install VirtualBox/VMware.</li>
-                                <li>Go to <b>File → Import Appliance</b>, choose <code>.ova</code> file, or manually create a new VM.</li>
-                                <li>Allocate resources (RAM, CPU cores, disk).</li>
-                                <li>Start multiple VMs (e.g., one Linux server, one Windows client).</li>
-                                <li>Monitor resource usage with Task Manager or <code>htop</code> in Linux.</li>
-                            </ol>
-                        </li>
-                        <li><b>Output:</b> Working multiple VMs on one host. Screenshots showing CPU/memory usage.</li>
-                    </ul>
+                    
+                    <div class="objective-section">
+                        <h3>Objective</h3>
+                        <p>To implement and understand a virtualized environment, enabling VM server consolidation with scalable infrastructure.</p>
+                    </div>
 
-                    <h3>💻 Important Terms & Tools</h3>
-                    <ul>
-                        <li><b>Virtualization, Hypervisor, VM Snapshot</b></li>
-                        <li><b>Server Consolidation, Scalability</b></li>
-                        <li><b>🧰 Software:</b> Oracle VirtualBox / VMware Workstation, <code>htop</code>, <code>vmstat</code>, Task Manager.</li>
-                    </ul>
+                    <h3>Tools Explained</h3>
+                    <div class="tool-description">
+                        <h4>Oracle VirtualBox / VMware Workstation</h4>
+                        <p>These are "Hypervisors" (Type 2). A hypervisor is software that lets you create and run virtual machines (VMs). A VM is a complete computer (CPU, RAM, disk) simulated in software, allowing you to run multiple operating systems (like Linux and Windows) on a single physical laptop.</p>
+                        <h4>OVA (Open Virtualization Appliance)</h4>
+                        <p>This is a single file (<code>.ova</code>) that contains a pre-configured, pre-installed virtual machine. You "import" it instead of having to install an OS from scratch.</p>
+                    </div>
+
+                    <h3>Detailed Procedure</h3>
+                    <ol>
+                        <li><b>Enable Virtualization:</b> Restart your computer and enter the BIOS/UEFI. Find and enable "Intel VT-x" or "AMD-V". This is required for the hypervisor to work.</li>
+                        <li><b>Install Hypervisor:</b> Install Oracle VirtualBox or VMware Workstation.</li>
+                        <li><b>Import Appliance:</b>
+                            <ul>
+                                <li>In VirtualBox: Go to <b>File > Import Appliance...</b></li>
+                                <li>In VMware: Go to <b>File > Open...</b></li>
+                                <li>Select the <code>.ova</code> file provided for your lab.</li>
+                            </ul>
+                        </li>
+                        <li><b>Configure Resources:</b> Before starting the VM, go to its "Settings". You can adjust the allocated RAM, number of CPU cores, and network settings.</li>
+                        <li><b>Create VM Manually (Alternative):</b> Click "New" and follow the wizard to create a new VM. You will need an <code>.iso</code> file for an operating system (like Ubuntu Server) to install it.</li>
+                        <li><b>Consolidation:</b> Start multiple VMs at the same time to simulate server consolidation.</li>
+                        <li><b>Monitor:</b> Use your host's Task Manager (or <code>htop</code> in Linux) to see how the physical CPU and RAM are being shared by the running VMs.</li>
+                    </ol>
+
+                    <h3>Key Concepts & Terms</h3>
+                    <div class="key-concepts">
+                        <ul>
+                            <li><b>Hypervisor:</b> The software that manages VMs.</li>
+                            <li><b>Virtual Machine (VM):</b> A software-based computer.</li>
+                            <li><b>Snapshot:</b> A saved state of a VM. You can "roll back" to this state, which is great for safe experimentation.</li>
+                            <li><b>Server Consolidation:</b> The practice of running multiple servers as VMs on a single physical machine to save power and hardware costs.</li>
+                        </ul>
+                    </div>
+
+                    <h3>Expected Output</h3>
+                    <div class="output-section">
+                        <ul>
+                            <li>One or more virtual machines running inside VirtualBox or VMware.</li>
+                            <li>Demonstration that the VMs can communicate (e.S. ping each other) or are isolated, based on network settings.</li>
+                            <li>Monitoring of the host system's resources (CPU/RAM) being used by the VMs.</li>
+                        </ul>
+                    </div>
                 </div>
             </details>
 
             <details>
                 <summary>Practical 3: Deleted File Recovery (Autopsy)</summary>
                 <div class="details-content">
-                    <h3>How-To: Extraction & Analysis of Deleted Files</h3>
-                    <ul>
-                        <li><b>Purpose:</b> To recover permanently deleted files and understand how forensic tools analyze disk images.</li>
-                        <li><b>Software Used:</b> FTK Imager (for disk imaging), Autopsy (for analysis)</li>
-                        <li><b>How to Perform:</b>
-                            <ol>
-                                <li>In <b>FTK Imager</b> → <b>File → Create Disk Image</b> → select a USB or partition.</li>
-                                <li>Save as <code>.E01</code> (forensic image).</li>
-                                <li>Open <b>Autopsy</b> → New Case → Add Data Source → Disk Image.</li>
-                                <li>Enable modules like “Deleted File Finder” & “File Type Identification.”</li>
-                                <li>Analyze recovered deleted files (red X mark).</li>
-                                <li>Right-click → “Extract File(s)” to restore.</li>
-                            </ol>
-                        </li>
-                        <li><b>Output:</b> List of deleted/recovered files with timestamps (MAC times) and content preview.</li>
-                    </ul>
+                    <div class="objective-section">
+                        <h3>Objective</h3>
+                        <p>To extract and analyze deleted files from a disk image using FTK Imager for imaging and Autopsy for analysis.</p>
+                    </div>
 
-                    <h3>🧠 Important Terms & Tools</h3>
-                    <ul>
-                        <li><b>Digital Evidence, Disk Image (E01)</b></li>
-                        <li><b>Deleted File Recovery, File Carving</b></li>
-                        <li><b>MAC Times (Modified, Accessed, Created)</b></li>
-                        <li><b>Unallocated Space</b></li>
-                        <li><b>🧰 Software:</b> FTK Imager (For creating images), Autopsy (For analysis).</li>
-                    </ul>
+                    <h3>Tools Explained</h3>
+                    <div class="tool-description">
+                        <h4>FTK Imager</h4>
+                        <p>This is an **acquisition** tool. Its *only* job is to create a perfect, bit-for-bit copy of a storage device (like a USB drive or HDD). This copy is called a "forensic image" (e.g., an <code>.E01</code> file). You *never* work on the original evidence, so you always make an image first.</p>
+                        <h4>Autopsy</h4>
+                        <p>This is an **analysis** tool. It's a digital forensics platform. You load the forensic image (created by FTK Imager) into Autopsy. Autopsy then scans the image to find deleted files, browser history, emails, images, and other "artifacts."</p>
+                    </div>
+
+                    <h3>Detailed Procedure</h3>
+                    <p><b>Part 1: Create Disk Image (with FTK Imager)</b></p>
+                    <ol>
+                        <li><b>Prepare Target:</b> Plug in a USB drive. Add some files (images, text docs). "Permanently" delete one or two (Shift + Delete).</li>
+                        <li><b>Launch FTK Imager.</b></li>
+                        <li><b>Create Image:</b> Go to <b>File > Create Disk Image...</b></li>
+                        <li><b>Select Source:</b> Choose "Physical Drive" and select your USB drive.</li>
+                        <li><b>Add Destination:</b> Click "Add...". Select the image type "E01". Fill in case details.</li>
+                        <li><b>Save Image:</b> Choose a location on your *computer's* hard drive and give the image a name (e.g., <code>usb_image</code>).</li>
+                        <li><b>Start:</b> Click "Start". FTK Imager will create the <code>.E01</code> file and verify its hash.</li>
+                    </ol>
+                    <p><b>Part 2: Analyze Image (with Autopsy)</b></p>
+                    <ol>
+                        <li><b>Launch Autopsy.</b></li>
+                        <li><b>Create New Case:</b> Click "New Case". Fill in the case name.</li>
+                        <li><b>Add Data Source:</b> In the wizard, select "Disk Image" and browse to the <code>.E01</code> file you just created with FTK Imager.</li>
+                        <li><b>Configure Ingest Modules:</b> Leave the default modules checked (especially "File Type Identification" and "Deleted File Finder"). Click "Next" to start the analysis.</li>
+                        <li><b>Find Deleted Files:</b> In the "Tree Viewer" on the left, expand "File Types" and click on "Deleted Files". You should see the files you deleted, often marked with a red "X".</li>
+                        <li><b>File Carving:</b> Autopsy also "carves" for files, meaning it finds files based on their headers (e.g., <code>JPEG</code>) even if the file system record is gone. You can find these in the "File Types" section by extension.</li>
+                        <li><b>Extract:</b> Right-click any recovered file and select "Extract File(s)" to save it.</li>
+                    </ol>
+
+                    <h3>Key Concepts & Terms</h3>
+                    <div class="key-concepts">
+                        <ul>
+                            <li><b>Forensic Image (E01):</b> A read-only, bit-for-bit copy of a drive that includes all data, even deleted files and unallocated space.</li>
+                            <li><b>Hashing (MD5/SHA1):</b> A "digital fingerprint". FTK Imager hashes the original drive and the image. If the hashes match, it proves the copy is perfect.</li>
+                            <li><b>Data Remanence:</b> The concept that data remains on a disk even after being "deleted".</li>
+                            <li><b>File Carving:</b> Recovering files based on their header and footer signatures, not file system metadata.</li>
+                            <li><b>Unallocated Space:</b> Sections of the disk that are not currently holding an active file. This is where deleted files live.</li>
+                        </ul>
+                    </div>
+
+                    <h3>Expected Output</h3>
+                    <div class="output-section">
+                        <ul>
+                            <li>An <code>.E01</code> forensic image file created by FTK Imager.</li>
+                            <li>An Autopsy case containing the loaded image.</li>
+                            <li>A list of deleted files (with red 'X' icons) found in the "Deleted Files" section of Autopsy.</li>
+                            <li>The ability to extract and view the content of a successfully recovered file.</li>
+                        </ul>
+                    </div>
                 </div>
             </details>
 
             <details>
-                <summary>Practical 4: Log Analysis (Windows & Linux)</summary>
+                <summary>Practical 4: System Log Analysis (Windows & Linux)</summary>
                 <div class="details-content">
-                    <h3>How-To: Log Analysis (Windows & Linux)</h3>
-                    <ul>
-                        <li><b>Purpose:</b> To detect unauthorized access attempts using system logs.</li>
-                        <li><b>Software Used:</b> Windows Event Viewer / PowerShell, Linux <code>journalctl</code>, <code>grep</code>, <code>awk</code>, <code>auth.log</code></li>
-                        <li><b>How to Perform (Windows):</b>
-                            <ol>
-                                <li>Run <code>eventvwr.msc</code>.</li>
-                                <li>Check Windows Logs → Security.</li>
-                                <li>Filter by Event IDs: <b>4624</b> (Success), <b>4625</b> (Failure), <b>4740</b> (Lockout).</li>
-                            </ol>
-                        </li>
-                        <li><b>How to Perform (Linux):</b>
-                            <ol>
-                                <li>Open terminal.</li>
-                                <li>Run: <code>sudo grep "Failed password" /var/log/auth.log</code></li>
-                                <li>Run: <code>sudo last</code> (shows last logins).</li>
-                            </ol>
-                        </li>
-                        <li><b>Output:</b> Identified failed logins, login times, and users/IPs involved.</li>
-                    </ul>
+                    <div class="objective-section">
+                        <h3>Objective</h3>
+                        <p>To understand, extract, and analyze system logs from Windows and Linux to identify indicators of unauthorized access.</p>
+                    </div>
 
-                    <h3>🔍 Important Terms & Tools</h3>
-                    <ul>
-                        <li><b>Event Logs, Sysmon, Audit Policy</b></li>
-                        <li><b><code>journalctl</code>, <code>/var/log/auth.log</code></b></li>
-                        <li><b>Event IDs (Windows): 4624, 4625, 4740</b></li>
-                        <li><b>Unauthorized Access Detection</b></li>
-                        <li><b>🧰 Software:</b> Windows Event Viewer, PowerShell, <code>journalctl</code>, <code>grep</code>, <code>auditd</code>.</li>
-                    </ul>
+                    <h3>Tools Explained</h3>
+                    <div class="tool-description">
+                        <h4>Windows Event Viewer (eventvwr.msc)</h4>
+                        <p>The built-in Windows GUI tool for viewing log files. The most important log is the **Security** log, which tracks login attempts, account lockouts, and other security-related events.</p>
+                        <h4>PowerShell (Get-WinEvent)</h4>
+                        <p>A command-line tool for advanced log querying. It's much faster than the GUI for filtering thousands of events.</p>
+                        <h4>Linux Log Files (e.g., /var/log/auth.log)</h4>
+                        <p>Linux stores logs as plain text files. <code>/var/log/auth.log</code> (on Debian/Ubuntu) or <code>/var/log/secure</code> (on RHEL/CentOS) is the most critical for forensics as it records *all* authentication attempts (logins, <code>sudo</code> commands, SSH failures).</p>
+                        <h4>journalctl</h4>
+                        <p>The modern Linux command for viewing logs from the systemd journal, which is replacing many of the old text files.</p>
+                    </div>
+
+                    <h3>Detailed Procedure</h3>
+                    <p><b>Part 1: Windows Log Analysis</b></p>
+                    <ol>
+                        <li><b>Simulate Failed Login:</b> Go to the Windows login screen and try to log in with a wrong password several times.</li>
+                        <li><b>Open Event Viewer:</b> Press <code>Win+R</code>, type <code>eventvwr.msc</code>, and press Enter.</li>
+                        <li><b>Navigate to Security Log:</b> On the left, expand "Windows Logs" and click on "Security".</li>
+                        <li><b>Find Failed Logon:</b> Look for an event with **Event ID 4625**. This is a "Logon Failure". </li>
+                        <li><b>Analyze Event:</b> Click on the Event ID 4625. In the "Details" pane, you can see the "Account Name" that failed to log in and the "Logon Type" (e.g., Type 2 = Interactive, Type 3 = Network).</li>
+                        <li><b>Find Successful Logon:</b> Look for **Event ID 4624** (Successful Logon).</li>
+                    </ol>
+                    <p><b>Part 2: Linux Log Analysis</b></p>
+                    <ol>
+                        <li><b>Simulate Failed SSH Login:</b> From another machine (or Putty), try to SSH into your Linux VM with a wrong password.</li>
+                        <li><b>Open Terminal.</b></li>
+                        <li><b>Check auth.log:</b> Use the <code>grep</code> command to search the authentication log. Type: <br><code>sudo grep "Failed password" /var/log/auth.log</code></li>
+                        <li><b>Analyze Output:</b> You will see a list of all failed login attempts, including the time, the invalid username, and the source IP address.</li>
+                        <li><b>Check Recent Logins:</b> Type <code>lastb</code> to see a list of bad login attempts. Type <code>last</code> to see a list of successful logins.</li>
+                        <li><b>Use journalctl (Modern way):</b> Type <code>journalctl -u sshd</code> to see all logs related to the SSH service.</li>
+                    </ol>
+
+                    <h3>Key Concepts & Terms</h3>
+                    <div class="key-concepts">
+                        <ul>
+                            <li><b>Event ID:</b> A number that Windows uses to categorize events. <b>4625 (Failure)</b> and <b>4624 (Success)</b> are the most important to remember.</li>
+                            <li><b>Audit Policy:</b> A setting in Windows that determines *what* gets logged. For forensics, you must enable "Audit logon events" (Success and Failure).</li>
+                            <li><b>grep:</b> A powerful Linux command for searching text. <code>grep "text" file.log</code>.</li>
+                            <li><b>Log Correlation:</b> The process of combining logs from multiple sources (like a firewall *and* a Windows server) to get a full picture of an attack.</li>
+                        </ul>
+                    </div>
+
+                    <h3>Expected Output</h3>
+                    <div class="output-section">
+                        <ul>
+                            <li>Identification of Event ID 4625 (Logon Failure) in the Windows Event Viewer.</li>
+                            <li>Using <code>grep</code> on <code>/var/log/auth.log</code> in Linux to find "Failed password" entries.</li>
+                            <li>Ability to state the difference in log locations for Windows (Event Viewer) and Linux (<code>/var/log/</code>).</li>
+                        </ul>
+                    </div>
                 </div>
             </details>
 
             <details>
                 <summary>Practical 5: Mobile Forensics (MOBILedit)</summary>
                 <div class="details-content">
-                    <h3>How-To: Mobile Forensics</h3>
-                    <ul>
-                        <li><b>Purpose:</b> To extract and analyze data (contacts, SMS, call logs, media) from mobile devices.</li>
-                        <li><b>Software Used:</b> MOBILedit Forensic Express, Autopsy</li>
-                        <li><b>How to Perform:</b>
-                            <ol>
-                                <li>Connect mobile to PC → <b>enable USB Debugging</b> (for Android).</li>
-                                <li>Open <b>MOBILedit</b> → select Extract Phone Data.</li>
-                                <li>Choose type: <b>Logical</b> (messages, contacts) or <b>Physical</b> (entire dump).</li>
-                                <li>Export extracted data (CSV/XML).</li>
-                                <li>Open <b>Autopsy</b> → import exported folder → analyze artifacts.</li>
-                            </ol>
-                        </li>
-                        <li><b>Output:</b> List of extracted communication artifacts (contacts, call history, messages).</li>
-                    </ul>
+                    <div class="objective-section">
+                        <h3>Objective</h3>
+                        <p>To demonstrate acquiring data from a mobile device (using MOBILedit) and analyzing the extracted data (using Autopsy), focusing on artifacts like contacts, call logs, and SMS.</p>
+                    </div>
 
-                    <h3>📱 Important Terms & Tools</h3>
-                    <ul>
-                        <li><b>Mobile Forensics, Logical Acquisition, Physical Acquisition</b></li>
-                        <li><b>Artifacts (SMS, calls, media, app data)</b></li>
-                        <li><b>EXIF Data (from images)</b></li>
-                        <li><b>🧰 Software:</b> MOBILedit Forensic Express, Autopsy, USB Debugging (Android).</li>
-                    </ul>
+                    <h3>Tools Explained</h3>
+                    <div class="tool-description">
+                        <h4>MOBILedit Forensic Express</h4>
+                        <p>This is a commercial **mobile data extraction** tool. Its job is to connect to a mobile phone (Android or iOS) and pull off data like contacts, SMS messages, call logs, photos, and application data. It can perform different types of extractions.</p>
+                        <h4>Autopsy</h4>
+                        <p>In this lab, you are using Autopsy as the **analysis** tool. After MOBILedit extracts the data, it saves it in a folder. You load this folder into Autopsy (as a "Logical File Set") to analyze the data, just like you did with the disk image in P3.</p>
+                        <h4>Android USB Debugging</h4>
+                        <p>This is a setting in Android's "Developer Options" that must be *enabled* to allow tools like MOBILedit to access the phone's data.</p>
+                    </div>
+
+                    <h3>Detailed Procedure</h3>
+                    <p><b>Part 1: Prepare Phone</b></p>
+                    <ol>
+                        <li><b>Enable Developer Options:</b> On the test Android phone, go to Settings > About Phone and tap on "Build number" 7 times.</li>
+                        <li><b>Enable USB Debugging:</b> Go to the new "Developer Options" menu and toggle "USB debugging" ON.</li>
+                        <li><b>Populate Data:</b> Add some dummy contacts, send a few test SMS messages, and make a test call.</li>
+                    </ol>
+                    <p><b>Part 2: Extract with MOBILedit</b></p>
+                    <ol>
+                        <li><b>Launch MOBILedit Forensic Express.</b></li>
+                        <li><b>Connect Phone:</b> Connect the phone to the PC with a USB cable. On the phone, a pop-up will ask "Allow USB debugging?". Check "Always allow" and tap "OK".</li>
+                        <li><b>Start Extraction:</b> In MOBILedit, select the device and choose the type of extraction (e.g., "Logical Acquisition").</li>
+                        <li><b>Select Data:</b> Check the boxes for the data you want to extract (Contacts, SMS, Call Logs, Photos).</li>
+                        <li><b>Export:</b> After extraction, export the findings. Choose an "Export" or "Report" option that saves the data to a folder (e.g., as CSV files, XML files, or an HTML report).</li>
+                    </ol>
+                    <p><b>Part 3: Analyze with Autopsy</b></p>
+                    <ol>
+                        <li><b>Launch Autopsy</b> and create a new case.</li>
+                        <li><b>Add Data Source:</b> This time, select "Logical Files" (not "Disk Image").</li>
+                        <li><b>Select Folder:</b> Browse and select the folder that MOBILedit exported its data to.</li>
+                        <li><b>Start Ingest:</b> Autopsy will scan the folder.</li>
+                        <li><b>Analyze Artifacts:</b> In the Autopsy tree viewer, look under "Data Artifacts". You should see parsed sections for "Call Logs", "Contacts", and "SMS/MMS Messages" that Autopsy found and organized for you.</li>
+                    </ol>
+
+                    <h3>Key Concepts & Terms</h3>
+                    <div class="key-concepts">
+                        <ul>
+                            <li><b>Logical Extraction:</b> Pulls data from the *file system*. It's like asking the phone's OS, "Please give me all contacts, SMS, etc." It's easy but doesn't get deleted data. </li>
+                            <li><b>Physical Extraction:</b> A bit-for-bit copy of the phone's *entire* memory chip. It's much harder to do but gets everything, including deleted data.</li>
+                            <li><b>Artifacts:</b> The pieces of user-generated evidence, like a contact, an SMS message, a call log entry, or a GPS location.</li>
+                            <li><b>EXIF Data:</b> Metadata stored inside a photo file (<code>.jpg</code>) that includes the timestamp, phone model, and sometimes the GPS location of where the photo was taken.</li>
+                        </ul>
+                    </div>
+
+                    <h3>Expected Output</h3>
+                    <div class="output-section">
+                        <ul>
+                            <li>A report or folder of extracted data from MOBILedit.</li>
+                            <li>An Autopsy case with the extracted data loaded as a "Logical File Source".</li>
+                            <li>The ability to view specific artifacts (e.g., SMS messages, Call Logs) in the "Data Artifacts" section of Autopsy.</li>
+                        </ul>
+                    </div>
                 </div>
             </details>
 
             <details>
                 <summary>Practical 6: Cyber Attack Analysis (Wireshark)</summary>
                 <div class="details-content">
-                    <h3>How-To: Cyber Attack Forensic Analysis</h3>
-                    <ul>
-                        <li><b>Purpose:</b> To analyze a <code>.pcap</code> file and identify attack types like brute force, port scanning, or data theft.</li>
-                        <li><b>Software Used:</b> Wireshark</li>
-                        <li><b>How to Perform:</b>
-                            <ol>
-                                <li>Open Wireshark → <b>File → Open</b> → select <code>.pcap</code> file.</li>
-                                <li>Go to <b>Statistics → Protocol Hierarchy, Endpoints, Conversations</b>.</li>
-                                <li>Use filters: <code>tcp.flags.syn == 1 && tcp.flags.ack == 0</code> (Port scan), <code>ftp</code>, <code>telnet</code>.</li>
-                                <li>Identify attacker IP and activity pattern.</li>
-                                <li>Create timeline of attack.</li>
-                            </ol>
-                        </li>
-                        <li><b>Output:</b> List of attacker IPs, protocols used, suspicious requests, and sequence of events.</li>
-                    </ul>
+                    <div class="objective-section">
+                        <h3>Objective</h3>
+                        <p>To analyze a pre-captured network traffic (pcap) file representing a cybercrime, identify attack vectors, and reconstruct the events.</p>
+                    </div>
 
-                    <h3>🕵️ Important Terms & Tools</h3>
-                    <ul>
-                        <li><b><code>.pcap</code> File, Port Scan, Brute Force Attack</b></li>
-                        <li><b>Data Exfiltration, Command & Control (C2)</b></li>
-                        <li><b>Xmas Scan / SYN Scan</b></li>
-                        <li><b>🧰 Software:</b> Wireshark.</li>
-                    </ul>
+                    <h3>Tools Explained</h3>
+                    <div class="tool-description">
+                        <h4>Wireshark</h4>
+                        <p>In this lab, you are not capturing live traffic. You are using Wireshark to *open and analyze* a <code>.pcap</code> file. A <code>.pcap</code> (packet capture) file is a recording of network traffic from a past event, in this case, a cyber attack.</p>
+                    </div>
+
+                    <h3>Detailed Procedure</h3>
+                    <ol>
+                        <li><b>Open PCAP:</b> Launch Wireshark. Go to <b>File > Open</b> and select the <code>.pcap</code> file provided for the lab.</li>
+                        <li><b>Initial Assessment:</b>
+                            <ul>
+                                <li>Go to <b>Statistics > Protocol Hierarchy</b>. This shows you all the protocols in the capture. Look for anything unusual (e.g., lots of FTP, Telnet, or IRC).</li>
+                                <li>Go to <b>Statistics > Conversations</b>. This shows who is talking to whom. Sort by "Packets" or "Bytes" to find the "noisiest" (most active) conversations, which are often the attacker and victim.</li>
+                            </ul>
+                        </li>
+                        <li><b>Hunt for Port Scans:</b>
+                            <ul>
+                                <li>Apply the filter <code>tcp.flags.syn == 1 && tcp.flags.ack == 0</code>.</li>
+                                <li>If you see *one* source IP sending packets to *many different ports* on a single destination IP, this is a clear sign of a **SYN Port Scan**.</li>
+                            </ul>
+                        </li>
+                        <li><b>Hunt for Unencrypted Credentials:</b>
+                            <ul>
+                                <li>Filter for <code>ftp</code>. Look for packets with <code>USER</code> and <code>PASS</code> in the info. Right-click one and "Follow > TCP Stream". You will see the password in plain text.</li>
+                                <li>Do the same for <code>telnet</code>.</li>
+                            </ul>
+                        </li>
+                        <li><b>Hunt for Web Attacks:</b>
+                            <ul>
+                                <li>Filter for <code>http</code>. Look for unusual GET requests (e.g., <code>GET /../../etc/passwd</code>) which could be a Directory Traversal attack.</li>
+                            </ul>
+                        </li>
+                        <li><b>Reconstruct Timeline:</b> Use the packet timestamps and your findings to build a story (e.g., "1. Attacker (1.2.3.4) performed a port scan. 2. Found FTP open. 3. Brute-forced the password. 4. Logged in and downloaded a file.").</li>
+                    </ol>
+
+                    <h3>Key Concepts & Terms</h3>
+                    <div class="key-concepts">
+                        <ul>
+                            <li><b>PCAP (Packet Capture):</b> A file that contains a recording of network packets.</li>
+                            <li><b>Port Scan:</b> An attack used to discover which services (ports) are open on a target machine.</li>
+                            <li><b>Follow TCP Stream:</b> A Wireshark feature that reassembles all the packets from a single TCP conversation and shows you the data in a readable format. This is essential for reading unencrypted protocols like HTTP, FTP, and Telnet.</li>
+                            <li><b>Protocol Hierarchy:</b> A Wireshark statistic that gives you a percentage breakdown of all protocols in the capture.</li>
+                        </ul>
+                    </div>
+
+                    <h3>Expected Output</h3>
+                    <div class="output-section">
+                        <ul>
+                            <li>Identification of the Attacker's IP and Victim's IP from the "Conversations" window.</li>
+                            <li>Evidence of a specific attack (e.g., a port scan, a plain-text password from an FTP stream).</li>
+                            <li>A summary of the attack timeline.</li>
+                        </ul>
+                    </div>
                 </div>
             </details>
 
             <details>
                 <summary>Practical 7: Email Threat Analysis (Phishing)</summary>
                 <div class="details-content">
-                    <h3>How-To: Email Threat Analysis</h3>
-                    <ul>
-                        <li><b>Purpose:</b> To demonstrate how advanced email detection techniques identify phishing and malware.</li>
-                        <li><b>Software Used:</b> Kali Linux (SET toolkit), Python (<code>smtplib</code>), Thunderbird/Outlook, Email Security Solutions</li>
-                        <li><b>How to Perform:</b>
-                            <ol>
-                                <li>Use SET or Python to send crafted phishing emails to test inbox.</li>
-                                <li>Include fake login links or attachments.</li>
-                                <li>Observe detection by the security filter.</li>
-                                <li>Check for <b>SPF/DKIM/DMARC</b> warnings in the email header.</li>
-                                <li>Note whether the email was delivered, quarantined, or blocked.</li>
-                            </ol>
-                        </li>
-                        <li><b>Output:</b> Logs or screenshots showing detection of phishing/BEC/malware attempts.</li>
-                    </ul>
+                    <div class="objective-section">
+                        <h3>Objective</h3>
+                        <p>To demonstrate and understand how advanced email threat detection techniques identify phishing, malware, and business email compromise (BEC).</p>
+                    </div>
 
-                    <h3>✉️ Important Terms & Tools</h3>
-                    <ul>
-                        <li><b>Phishing, Business Email Compromise (BEC)</b></li>
-                        <li><b>SPF/DKIM/DMARC, Sandboxing</b></li>
-                        <li><b>Malicious Attachment, URL Obfuscation</b></li>
-                        <li><b>🧰 Software:</b> Kali Linux (SET toolkit), Python <code>smtplib</code>, Email Security Solutions, Thunderbird.</li>
-                    </ul>
+                    <h3>Tools Explained</h3>
+                    <div class="tool-description">
+                        <h4>Social-Engineer Toolkit (SET)</h4>
+                        <p>A tool (often in Kali Linux) used to simulate and execute social engineering attacks. It can be used to craft a convincing phishing email and clone a website for credential harvesting.</p>
+                        <h4>Mail Server / Client (Thunderbird, Outlook)</h4>
+                        <p>You need a mail client (like Thunderbird) to *receive* the test phishing email and a mail server to *send* it.</p>
+                    </div>
+
+                    <h3>Detailed Procedure</h3>
+                    <ol>
+                        <li><b>Set Up Environment:</b> You need an "Attacker" VM (like Kali) and a "Victim" VM (like Windows) with a mail client.</li>
+                        <li><b>Craft Phishing Email (Attacker):</b>
+                            <ul>
+                                <li>Use a tool like SET or a simple Python script to create a fake email.</li>
+                                <li>The email should have red flags, such as:
+                                    <ul>
+                                        <li>A "spoofed" (fake) sender address.</li>
+                                        <li>A sense of urgency (e.g., "Your account is locked!").</li>
+                                        <li>A malicious link that *looks* real but points somewhere else.</li>
+                                        <li>A malicious attachment (e.g., a <code>.zip</code> or <code>.docm</code> file).</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><b>Send Email:</b> Send the email from the attacker to the victim.</li>
+                        <li><b>Analyze Email Header (Victim):</b>
+                            <ul>
+                                <li>In the victim's mail client (Thunderbird/Outlook), open the email and find the option to "View Source" or "View Message Header".</li>
+                                <li><b>Trace the Path:</b> Look at the <code>Received:</code> headers. Read them from **BOTTOM to TOP** to see the true path the email took.</li>
+                                <li><b>Check Authentication:</b> Look for a header called <code>Authentication-Results</code>. Check the status of <b>SPF</b>, <b>DKIM</b>, and <b>DMARC</b>. If they say "fail" or "none", it's a huge red flag that the sender is spoofed. </li>
+                            </ul>
+                        </li>
+                        <li><b>Analyze Attachments/Links:</b> (CAREFULLY!) Do not click the link. Instead, hover over it to see its true destination. If it's an attachment, you would normally submit its hash to VirusTotal.</li>
+                    </ol>
+
+                    <h3>Key Concepts & Terms</h3>
+                    <div class="key-concepts">
+                        <ul>
+                            <li><b>Phishing:</b> An email scam to steal credentials (username/password).</li>
+                            <li><b>BEC (Business Email Compromise):</b> A targeted scam that impersonates a high-level executive (like the CEO) to trick an employee into sending money.</li>
+                            <li><b>Email Header:</b> The metadata of an email that shows the true sender, path, and authentication results.</li>
+                            <li><b>SPF (Sender Policy Framework):</b> An email authentication record that prevents spammers from sending messages on behalf of your domain.</li>
+                            <li><b>DKIM (DomainKeys Identified Mail):</b> Adds a digital signature to emails to verify they are legitimate.</li>
+                            <li><b>DMARC:</b> A policy that tells a receiving server what to do if SPF or DKIM fails (e.g., "reject" the email).</li>
+                        </ul>
+                    </div>
+
+                    <h3>Expected Output</h3>
+                    <div class="output-section">
+                        <ul>
+                            <li>A received phishing email in the victim's inbox.</li>
+                            <li>A clear analysis of the email's header.</li>
+                            <li>The ability to point to the <code>Authentication-Results</code> (SPF/DKIM/DMARC) header and explain what "fail" means.</li>
+                            <li>The ability to trace the <code>Received:</code> headers from bottom to top.</li>
+                        </ul>
+                    </div>
                 </div>
             </details>
 
             <details>
                 <summary>Practical 8: Browser Privacy Analysis</summary>
                 <div class="details-content">
-                    <h3>How-To: Data Privacy Analysis</h3>
-                    <ul>
-                        <li><b>Purpose:</b> To study how websites track users and how privacy tools prevent tracking.</li>
-                        <li><b>Software Used:</b> Google Chrome / Firefox / Brave, Ghostery, Privacy Badger, uBlock Origin</li>
-                        <li><b>How to Perform:</b>
-                            <ol>
-                                <li>Open browser → <b>Developer Tools (F12) → Network tab</b>.</li>
-                                <li>Visit a tracking-heavy website (news, e-commerce).</li>
-                                <li>Note third-party requests and cookies created.</li>
-                                <li>Install privacy extensions → revisit same website.</li>
-                                <li>Observe fewer requests and blocked trackers.</li>
-                            </ol>
-                        </li>
-                        <li><b>Output:</b> Comparison showing number of trackers/cookies before and after enabling privacy tools.</li>
-                    </ul>
+                    <div class="objective-section">
+                        <h3>Objective</h3>
+                        <p>To observe and analyze the types of data collected by websites and how browser privacy tools can limit this collection.</p>
+                    </div>
 
-                    <h3>🌐 Important Terms & Tools</h3>
-                    <ul>
-                        <li><b>Cookies, Local Storage / Session Storage</b></li>
-                        <li><b>Third-Party Trackers, Fingerprinting</b></li>
-                        <li><b>Incognito Mode</b></li>
-                        <li><b>🧰 Software:</b> Browsers (Chrome, Firefox), Extensions (Ghostery, Privacy Badger, uBlock Origin), Developer Tools.</li>
-                    </ul>
+                    <h3>Tools Explained</h3>
+                    <div class="tool-description">
+                        <h4>Browser Developer Tools</h4>
+                        <p>Every modern browser (Chrome, Firefox) has built-in "Dev Tools". You access them by pressing **F12**. For this lab, you'll use two tabs:</p>
+                        <ul>
+                            <li><b>Network Tab:</b> Shows you every single request the website makes (to load images, scripts, ads, trackers).</li>
+                            <li><b>Application Tab (or Storage):</b> Lets you see the website's storage, including <b>Cookies</b> and <b>Local Storage</b>.</li>
+                        </ul>
+                        <h4>Privacy Badger / uBlock Origin</h4>
+                        <p>These are browser extensions that identify and block third-party trackers, ads, and cookies.</p>
+                    </div>
+
+                    <h3>Detailed Procedure</h3>
+                    <p><b>Part 1: Baseline (No Protection)</b></p>
+                    <ol>
+                        <li>Open your browser (e.g., Chrome) in a new Incognito window.</li>
+                        <li>Press <b>F12</b> to open Developer Tools.</li>
+                        <li>Click the <b>"Network"</b> tab. Check the "Disable cache" box.</li>
+                        <li>Click the <b>"Application"</b> tab (or "Storage" in Firefox).</li>
+                        <li><b>Visit a Website:</b> Go to a tracking-heavy website (like a major news site).</li>
+                        <li><b>Observe Network:</b> In the "Network" tab, watch as *hundreds* of requests are made to third-party domains (ad networks, analytics).</li>
+                        <li><b>Observe Storage:</b> In the "Application" tab, look at "Cookies" and "Local Storage". See all the trackers setting data. Note the total number of cookies.</li>
+                    </ol>
+                    <p><b>Part 2: With Protection</b></p>
+                    <ol>
+                        <li>Install a privacy extension (like uBlock Origin or Privacy Badger).</li>
+                        <li>Open a new Incognito window (ensure the extension is allowed in Incognito).</li>
+                        <li>Open Dev Tools (F12) again.</li>
+                        <li><b>Visit the SAME Website.</b></li>
+                        <li><b>Observe Network:</b> Look at the "Network" tab. You will see many requests are now <b>blocked</b> or are red. The page will load faster.</li>
+                        <li><b>Observe Storage:</b> Go to the "Application" tab and check "Cookies". You will see significantly *fewer* cookies have been set.</li>
+                    </ol>
+
+                    <h3>Key Concepts & Terms</h3>
+                    <div class="key-concepts">
+                        <ul>
+                            <li><b>Cookie:</b> A small piece of data a website stores in your browser to remember you (e.g., for login sessions or ad tracking).</li>
+                            <li><b>Third-Party Cookie:</b> A cookie set by a domain *other than* the one you are visiting. This is the main tool of ad trackers.</li>
+                            <li><b>Local Storage:</b> A newer, larger storage area in the browser that websites can use.</li>
+                            <li><b>Browser Fingerprinting:</b> A technique used to identify you *even without cookies*, by collecting details about your system (screen resolution, fonts, browser version, etc.).</li>
+                        </ul>
+                    </div>
+
+                    <h3>Expected Output</h3>
+                    <div class="output-section">
+                        <ul>
+                            <li>Screenshots of the "Network" tab before and after, showing a reduction in total requests.</li>
+                            <li>Screenshots of the "Application" tab before and after, showing a reduction in the number of cookies.</li>
+                            <li>A clear comparison of the data collected with and without privacy tools.</li>
+                        </ul>
+                    </div>
                 </div>
             </details>
 
             <details>
-                <summary>Practical 9: Data Remanence & Recovery</summary>
+                <summary>Practical 9: Data Remanence (Recuva & TestDisk)</summary>
                 <div class="details-content">
-                    <h3>How-To: Data Remanence & Recovery</h3>
-                    <ul>
-                        <li><b>Purpose:</b> To analyze how deleted data can still be recovered from storage devices.</li>
-                        <li><b>Software Used:</b> Recuva (File recovery), TestDisk (Partition recovery)</li>
-                        <li><b>How to Perform (Part A: Recuva):</b>
-                            <ol>
-                                <li>Create & delete files from USB drive (Shift+Delete).</li>
-                                <li>Open <b>Recuva</b> → Scan → recover deleted files.</li>
-                            </ol>
-                        </li>
-                        <li><b>How to Perform (Part B: TestDisk):</b>
-                            <ol>
-                                <li>Delete a partition using Disk Management.</li>
-                                <li>Open <b>TestDisk</b> → select disk → <b>Analyze</b> → <b>Quick Search</b>.</li>
-                                <li>Recover lost partition and verify.</li>
-                            </ol>
-                        </li>
-                        <li><b>Output:</b> Recovered files and partitions, showing data persistence even after deletion.</li>
-                    </ul>
+                    <div class="objective-section">
+                        <h3>Objective</h3>
+                        <p>To empirically analyze data remanence and the effectiveness of data recovery tools, specifically Recuva (file recovery) and TestDisk (partition recovery).</p>
+                    </div>
 
-                    <h3>💾 Important Terms & Tools</h3>
-                    <ul>
-                        <li><b>Data Remanence</b></li>
-                        <li><b>Quick Format vs. Full Format</b></li>
-                        <li><b>Partition Recovery, File Recovery</b></li>
-                        <li><b>Cluster / Sector</b></li>
-                        <li><b>🧰 Software:</b> Recuva (for files), TestDisk (for partitions), HxD (Hex Editor).</li>
-                    </ul>
+                    <h3>Tools Explained</h3>
+                    <div class="tool-description">
+                        <h4>Recuva</h4>
+                        <p>This is a **file recovery** tool. It is used to find and recover *individual files* that have been deleted from a working partition. It's simple, user-friendly, and works by scanning for file system records that have been marked as "deleted".</p>
+                        <h4>TestDisk</h4>
+                        <p>This is a **partition recovery** tool. It is a powerful, command-line-based tool used to fix *entire partitions* that have been deleted or corrupted. If your USB drive suddenly shows up as "Unallocated" or "RAW", TestDisk is the tool you use to find the lost partition table and re-write it.</p>
+                    </div>
+
+                    <h3>Detailed Procedure</h3>
+                    <p><b>Part 1: File Recovery (Recuva)</b></p>
+                    <ol>
+                        <li><b>Prepare Drive:</b> Take a USB drive. Format it. Create a folder and put some files (images, docs) inside.</li>
+                        <li><b>Delete Files:</b> Select the files and press <b>Shift + Delete</b> to permanently delete them.</li>
+                        <li><b>Scan with Recuva:</b>
+                            <ul>
+                                <li>Open Recuva.</li>
+                                <li>Select the drive (your USB) and the file type you're looking for (or "All Files").</li>
+                                <li>Click "Scan". Recuva will find the deleted files.</li>
+                            </ul>
+                        </li>
+                        <li><b>Recover:</b> Check the box next to the file you want and click "Recover". **IMPORTANT:** Save the recovered file to your *computer's* hard drive, NOT back to the USB drive (this could overwrite other deleted data).</li>
+                        <li><b>Test "Quick Format":</b> Quick-format the USB drive, then run Recuva again. It will *still* find the files.</li>
+                    </ol>
+                    <p><b>Part 2: Partition Recovery (TestDisk)</b></p>
+                    <ol>
+                        <li><b>Delete Partition:</b> Go to Windows "Disk Management". Right-click your USB drive's partition and select "Delete Volume". The drive will now show as "Unallocated Space".</li>
+                        <li><b>Launch TestDisk:</b> Run <code>testdisk_win.exe</code> (it's a command-line interface).</li>
+                        <li><b>Create Log:</b> Select "Create" for a new log file.</li>
+                        <li><b>Select Disk:</b> Use the arrow keys to select your USB drive (NOT your main C: drive!) and press Enter.</li>
+                        <li><b>Select Partition Type:</b> Choose "[Intel/PC partition]".</li>
+                        <li><b>Analyze:</b> Select "[Analyse]" and press Enter.</li>
+                        <li><b>Quick Search:</b> On the next screen, select "[Quick Search]". TestDisk will scan the unallocated space.</li>
+                        <li><b>Find Partition:</b> TestDisk should find your "lost" partition. Press "P" to list the files and verify it's the right one.</li>
+                        <li><b>Write Partition:</b> Press Enter, then select "[Write]" to restore the partition table. Confirm with "Y".</li>
+                        <li><b>Reboot:</b> Safely eject and re-plug the USB, or reboot your PC. The partition will be back.</li>
+                    </ol>
+
+                    <h3>Key Concepts & Terms</h3>
+                    <div class="key-concepts">
+                        <ul>
+                            <li><b>Data Remanence:</b> The persistence of data on storage even after deletion.</li>
+                            <li><b>Quick Format:</b> Simply erases the "table of contents" (file system index) of a drive. The data is still there. Recuva can recover from this.</li>
+                            <li><b>Full Format:</b> Erases the index *and* overwrites the entire drive with zeros. Data is not recoverable after this.</li>
+                            <li><b>Partition Table:</b> The map at the very beginning of a drive that tells the OS where each partition (e.S. C:, D:) starts and ends. TestDisk fixes this map.</li>
+                        </ul>
+                    </div>
+
+                    <h3>Expected Output</h3>
+                    <div class="output-section">
+                        <ul>
+                            <li>A file (e.g., a .jpg) successfully recovered using Recuva.</li>
+                            <li>A USB drive partition, previously "Unallocated", successfully restored and made visible in "This PC" using TestDisk.</li>
+                        </ul>
+                    </div>
                 </div>
             </details>
 
             <details>
                 <summary>Practical 10: Forensic Report Writing</summary>
                 <div class="details-content">
-                    <h3>How-To: Forensic Report for Phishing Incident</h3>
-                    <ul>
-                        <li><b>Purpose:</b> To prepare a complete forensic report for a phishing attack case.</li>
-                        <li><b>Software Used:</b> EnCase Forensic / FTK Imager / Autopsy, MS Word / Google Docs</li>
-                        <li><b>How to Perform:</b>
-                            <ol>
-                                <li>Simulate phishing attack.</li>
-                                <li>Use EnCase/Autopsy to analyze disk and email artifacts.</li>
-                                <li>Extract evidence: headers, malicious files, logs.</li>
-                                <li>In MS Word, create structured report: Executive Summary, Methodology, Findings, Impact, Recommendations.</li>
-                                <li>Maintain <b>Chain of Custody</b> record for evidence.</li>
-                            </ol>
-                        </li>
-                        <li><b>Output:</b> A complete forensic report documenting the investigation.</li>
-                    </ul>
+                    <div class="objective-section">
+                        <h3>Objective</h3>
+                        <p>To develop comprehensive forensic reports for phishing incidents, using forensic tools for analysis and a word processor for documentation.</p>
+                    </div>
 
-                    <h3>🧾 Important Terms & Tools</h3>
-                    <ul>
-                        <li><b>Chain of Custody (Most Important!)</b></li>
-                        <li><b>Forensic Report, Timeline Analysis</b></li>
-                        <li><b>Indicators of Compromise (IOCs)</b></li>
-                        <li><b>Hash Values (MD5, SHA-1, SHA-256)</b></li>
-                        <li><b>Persistence Mechanism</b></li>
-                        <li><b>🧰 Software:</b> EnCase, Autopsy, FTK Imager, MailXaminer, Wireshark, Microsoft Word.</li>
-                    </ul>
+                    <h3>Tools Explained</h3>
+                    <div class="tool-description">
+                        <h4>EnCase / Autopsy</h4>
+                        <p>These are the **analysis** tools. You use them to perform the technical investigation, find the evidence (like the phishing email, the malicious file, the browser history of the victim clicking the link), and take screenshots.</p>
+                        <h4>Microsoft Word / Word Processor</h4>
+                        <p>This is the **reporting** tool. This is where you *present* your findings. A forensic report is a formal, legal document. It must be clear, concise, and accurate. Your technical skills are useless if you can't *explain* what you found in a report.</p>
+                    </div>
+
+                    <h3>Detailed Procedure (Report Structure)</h3>
+                    <p>A good forensic report has a standard structure. When writing your report, you must include these sections:</p>
+                    <ol>
+                        <li><b>Case Details:</b>
+                            <ul>
+                                <li>Case Number, Date of Report, Investigator Name.</li>
+                            </ul>
+                        </li>
+                        <li><b>Executive Summary:</b>
+                            <ul>
+                                <li>A *one-paragraph* summary for a non-technical manager.</li>
+                                <li>Example: "On Nov 12, 2025, an employee received a phishing email. They clicked the link, and malware was installed. We analyzed the system and found evidence of data exfiltration. The system has been contained."</li>
+                            </ul>
+                        </li>
+                        <li><b>Methodology:</b>
+                            <ul>
+                                <li>Describe the tools you used (e.g., "FTK Imager v4.2.0, Autopsy v4.19.0").</li>
+                                <li>Describe your process (e.g., "A forensic image was acquired, and hashes were verified. The image was analyzed...").</li>
+                            </ul>
+                        </li>
+                        <li><b>Findings & Analysis (The most important part):</b>
+                            <ul>
+                                <li>Present your evidence logically.</li>
+                                <li>Show the phishing email header (and explain the SPF/DKIM failure).</li>
+                                <li>Show the browser history of the click.</li>
+                                <li>Show the malicious file found on disk (with its hash).</li>
+                                <li>Show the network logs (from Wireshark/Autopsy) of the C2 communication.</li>
+                                <li>Use screenshots from your analysis tools.</li>
+                            </ul>
+                        </li>
+                        <li><b>Conclusion:</b>
+                            <ul>
+                                <li>A brief summary of your findings (e.g., "The evidence confirms the system was compromised via phishing...").</li>
+                            </ul>
+                        </li>
+                        <li><b>Recommendations:</b>
+                            <ul>
+                                <li>Actionable steps to fix this. (e.g., "1. Re-image the workstation. 2. Reset the user's password. 3. Implement employee phishing training.").</li>
+                            </ul>
+                        </li>
+                        <li><b>Appendices (Chain of Custody):</b>
+                            <ul>
+                                <li>Include your **Chain of Custody** form.</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <h3>Key Concepts & Terms</h3>
+                    <div class="key-concepts">
+                        <ul>
+                            <li><b>Chain of Custody:</b> The *most important* concept in all of forensics. It is a log that documents *who* handled the evidence, *when* they handled it, *where* it was stored, and *why* they handled it. A broken CoC makes your evidence inadmissible. </li>
+                            <li><b>Indicators of Compromise (IOCs):</b> The "clues" of an attack. These are things like the attacker's IP, the hash of the malware file, or the phishing email's subject line.</li>
+                            <li><b>Timeline Analysis:</b> The process of putting all the evidence in chronological order (using timestamps) to build a narrative of the attack.</li>
+                        </ul>
+                    </div>
+
+                    <h3>Expected Output</h3>
+                    <div class="output-section">
+                        <ul>
+                            <li>A complete, multi-page forensic report in <code>.doc</code> or <code>.pdf</code> format.</li>
+                            <li>The report must be structured with the sections listed above (Summary, Methodology, Findings, etc.).</li>
+                            <li>The report must contain screenshots from your analysis tools (like Autopsy) as evidence.</li>
+                        </ul>
+                    </div>
                 </div>
             </details>
 

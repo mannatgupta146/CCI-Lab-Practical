@@ -26,13 +26,13 @@ This project is perfectly set up to be hosted for free on **GitHub Pages**. Once
 
 1.  Clone this repository:
     ```bash
-    git clone [https://github.com/mannatgupta146/CCI-Lab-Practical.git](https://github.com/mannatgupta146/CCI-Lab-Practical.git)
+    git clone https://github.com/mannatgupta146/CCI-Lab-Practical.git
     ```
 2.  Navigate to the folder:
     ```bash
     cd CCI-Lab-Practical
     ```
-3.  Open the `My_Lab_Guide.html` file in any web browser.
+3.  Open the `index.html` file in any web browser.
 
 ## ✨ Features
 

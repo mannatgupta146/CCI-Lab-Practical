@@ -4,11 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Forensics Lab Guide</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
     <style>
+        /* --- Base Desktop Styles --- */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
-            background-color: #f4f7f6;
+            background-color: #f7f8fa; /* Lighter page background */
             color: #333;
             margin: 0;
             padding: 20px;
@@ -17,22 +25,24 @@
             max-width: 900px;
             margin: 20px auto;
             background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-radius: 12px; /* Softer radius */
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
             overflow: hidden;
         }
         header {
             background-color: #003366; /* Dark professional blue */
             color: white;
-            padding: 25px 30px;
+            padding: 30px 35px;
             text-align: center;
         }
         header h1 {
             margin: 0;
-            font-size: 2em;
+            font-size: 2.2em; /* Desktop header font size */
+            font-weight: 700;
         }
         .content {
-            padding: 10px 30px 30px 30px;
+            padding: 10px 35px 35px 35px;
         }
         details {
             background-color: #ffffff;
@@ -42,13 +52,13 @@
             transition: background-color 0.2s;
         }
         details:hover {
-            background-color: #f9f9f9;
+            background-color: #fdfdfd;
         }
         summary {
-            font-size: 1.3em; /* Larger title */
+            font-size: 1.3em; /* Desktop practical title font size */
             font-weight: 600;
             cursor: pointer;
-            padding: 20px;
+            padding: 22px;
             list-style: none;
             display: flex;
             align-items: center;
@@ -57,21 +67,30 @@
         summary::-webkit-details-marker {
             display: none;
         }
-        summary::before {
-            content: '►';
+        summary .icon {
+            font-size: 0.9em;
+            width: 30px; 
             margin-right: 12px;
-            font-size: 0.8em;
             color: #0056b3;
-            transition: transform 0.2s;
+            text-align: center;
+        }
+        summary::after {
+            content: '\f054'; /* Font Awesome 'chevron-right' */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            font-size: 0.7em;
+            color: #555;
+            margin-left: auto; /* Pushes it to the far right */
+            transition: transform 0.2s ease-in-out;
         }
         details[open] summary {
             border-bottom: 1px solid #ddd;
         }
-        details[open] summary::before {
+        details[open] summary::after {
             transform: rotate(90deg);
         }
         .details-content {
-            padding: 20px 20px 20px 42px;
+            padding: 20px 25px 25px 45px;
         }
         .details-content h3 {
             color: #003366;
@@ -79,11 +98,13 @@
             padding-bottom: 5px;
             margin-top: 25px;
             font-size: 1.25em;
+            font-weight: 600;
         }
         .details-content h4 {
             color: #333;
             font-size: 1.1em;
             margin-bottom: 5px;
+            font-weight: 600;
         }
         ul, ol {
             padding-left: 20px;
@@ -93,30 +114,31 @@
         }
         code {
             background-color: #e4e4e4;
-            padding: 2px 5px;
+            padding: 3px 6px;
             border-radius: 4px;
             font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 0.9em;
         }
         .tool-description, .key-concepts, .output-section, .objective-section {
             background-color: #f9f9f9;
             border: 1px solid #e0e0e0;
             border-left: 5px solid #0056b3;
-            padding: 15px;
+            padding: 15px 20px;
             border-radius: 5px;
             margin-top: 15px;
         }
         .key-concepts ul {
-            list-style-type: '🔑 ';
+            list-style-type: '🔑';
             padding-left: 25px;
         }
         .output-section ul {
-            list-style-type: '✅ ';
+            list-style-type: '✅';
             padding-left: 25px;
         }
         .github-link {
             text-align: center;
             padding: 30px;
-            background-color: #f4f7f6;
+            background-color: #f7f8fa;
             margin-top: 30px;
             border-top: 1px solid #ddd;
         }
@@ -134,6 +156,50 @@
         .github-link a:hover {
             background-color: #444;
         }
+
+        /* ========================================
+        NEW: RESPONSIVE STYLES FOR MOBILE
+        ========================================
+        This block applies only if the screen is 600px or less.
+        */
+        @media (max-width: 600px) {
+            body {
+                padding: 0; /* No padding on the body for mobile */
+                -webkit-text-size-adjust: 100%; /* Prevents font zoom on iOS */
+            }
+            .container {
+                margin: 0;
+                width: 100%;
+                border-radius: 0; /* Full-width, so no radius */
+                border: none;
+                box-shadow: none;
+            }
+            .content {
+                /* Reduced padding for mobile */
+                padding: 10px 15px 15px 15px;
+            }
+            header {
+                padding: 20px 15px;
+            }
+            header h1 {
+                font-size: 1.8em; /* Smaller header font */
+            }
+            summary {
+                font-size: 1.1em; /* Smaller practical title */
+                padding: 18px 15px; /* Tighter padding */
+            }
+            summary .icon {
+                margin-right: 10px;
+            }
+            .details-content {
+                /* Tighter padding for mobile */
+                padding: 15px 15px 20px 15px;
+            }
+            .details-content h3 {
+                font-size: 1.15em;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -146,7 +212,7 @@
         <div class="content">
 
             <details>
-                <summary>Practical 1: Network Traffic Analysis (Wireshark)</summary>
+                <summary><i class="fas fa-network-wired icon"></i>Practical 1: Network Traffic Analysis (Wireshark)</summary>
                 <div class="details-content">
                     
                     <div class="objective-section">
@@ -185,8 +251,8 @@
                         <ul>
                             <li><b>Packet:</b> The smallest unit of data on a network.</li>
                             <li><b>Protocol:</b> Rules for communication (e.g., TCP, UDP, HTTP, DNS).</li>
-                            <li><b>TCP 3-Way Handshake:</b> The `SYN`, `SYN-ACK`, `ACK` process used to establish a reliable connection.</li>
-                            <li><b>Display Filter:</b> The filter bar in Wireshark used to *find* packets *after* they are captured (e.g., `http`).</li>
+                            <li><b>TCP 3-Way Handshake:</b> The <code>SYN</code>, <code>SYN-ACK</code>, <code>ACK</code> process used to establish a reliable connection.</li>
+                            <li><b>Display Filter:</b> The filter bar in Wireshark used to *find* packets *after* they are captured (e.g., <code>http</code>).</li>
                             <li><b>IP Address:</b> The "street address" for a device on the internet.</li>
                         </ul>
                     </div>
@@ -204,7 +270,7 @@
             </details>
 
             <details>
-                <summary>Practical 2: Virtualized Environment Setup</summary>
+                <summary><i class="fas fa-layer-group icon"></i>Practical 2: Virtualized Environment Setup</summary>
                 <div class="details-content">
                     
                     <div class="objective-section">
@@ -259,7 +325,7 @@
             </details>
 
             <details>
-                <summary>Practical 3: Deleted File Recovery (Autopsy)</summary>
+                <summary><i class="fas fa-trash-can-arrow-up icon"></i>Practical 3: Deleted File Recovery (Autopsy)</summary>
                 <div class="details-content">
                     <div class="objective-section">
                         <h3>Objective</h3>
@@ -291,7 +357,7 @@
                         <li><b>Create New Case:</b> Click "New Case". Fill in the case name.</li>
                         <li><b>Add Data Source:</b> In the wizard, select "Disk Image" and browse to the <code>.E01</code> file you just created with FTK Imager.</li>
                         <li><b>Configure Ingest Modules:</b> Leave the default modules checked (especially "File Type Identification" and "Deleted File Finder"). Click "Next" to start the analysis.</li>
-                        <li><b>Find Deleted Files:</b> In the "Tree Viewer" on the left, expand "File Types" and click on "Deleted Files". You should see the files you deleted, often marked with a red "X".</li>
+                        <li><b>Find Deleted Files:</b> In the "Tree Viewer" on the left, expand "File Types" and click on "Deleted Files". You should see the files you deleted, often marked with a red "X". </li>
                         <li><b>File Carving:</b> Autopsy also "carves" for files, meaning it finds files based on their headers (e.g., <code>JPEG</code>) even if the file system record is gone. You can find these in the "File Types" section by extension.</li>
                         <li><b>Extract:</b> Right-click any recovered file and select "Extract File(s)" to save it.</li>
                     </ol>
@@ -320,7 +386,7 @@
             </details>
 
             <details>
-                <summary>Practical 4: System Log Analysis (Windows & Linux)</summary>
+                <summary><i class="fas fa-file-lines icon"></i>Practical 4: System Log Analysis (Windows & Linux)</summary>
                 <div class="details-content">
                     <div class="objective-section">
                         <h3>Objective</h3>
@@ -381,7 +447,7 @@
             </details>
 
             <details>
-                <summary>Practical 5: Mobile Forensics (MOBILedit)</summary>
+                <summary><i class="fas fa-mobile-screen-button icon"></i>Practical 5: Mobile Forensics (MOBILedit)</summary>
                 <div class="details-content">
                     <div class="objective-section">
                         <h3>Objective</h3>
@@ -444,7 +510,7 @@
             </details>
 
             <details>
-                <summary>Practical 6: Cyber Attack Analysis (Wireshark)</summary>
+                <summary><i class="fas fa-user-secret icon"></i>Practical 6: Cyber Attack Analysis (Wireshark)</summary>
                 <div class="details-content">
                     <div class="objective-section">
                         <h3>Objective</h3>
@@ -508,7 +574,7 @@
             </details>
 
             <details>
-                <summary>Practical 7: Email Threat Analysis (Phishing)</summary>
+                <summary><i class="fas fa-envelope-open-text icon"></i>Practical 7: Email Threat Analysis (Phishing)</summary>
                 <div class="details-content">
                     <div class="objective-section">
                         <h3>Objective</h3>
@@ -575,7 +641,7 @@
             </details>
 
             <details>
-                <summary>Practical 8: Browser Privacy Analysis</summary>
+                <summary><i class="fas fa-shield-halved icon"></i>Practical 8: Browser Privacy Analysis</summary>
                 <div class="details-content">
                     <div class="objective-section">
                         <h3>Objective</h3>
@@ -602,7 +668,7 @@
                         <li>Click the <b>"Network"</b> tab. Check the "Disable cache" box.</li>
                         <li>Click the <b>"Application"</b> tab (or "Storage" in Firefox).</li>
                         <li><b>Visit a Website:</b> Go to a tracking-heavy website (like a major news site).</li>
-                        <li><b>Observe Network:</b> In the "Network" tab, watch as *hundreds* of requests are made to third-party domains (ad networks, analytics).</li>
+                        <li><b>Observe Network:</b> In the "Network" tab, watch as *hundreds* of requests are made to third-party domains (ad networks, analytics). </li>
                         <li><b>Observe Storage:</b> In the "Application" tab, look at "Cookies" and "Local Storage". See all the trackers setting data. Note the total number of cookies.</li>
                     </ol>
                     <p><b>Part 2: With Protection</b></p>
@@ -637,7 +703,7 @@
             </details>
 
             <details>
-                <summary>Practical 9: Data Remanence (Recuva & TestDisk)</summary>
+                <summary><i class="fas fa-hdd icon"></i>Practical 9: Data Remanence (Recuva & TestDisk)</summary>
                 <div class="details-content">
                     <div class="objective-section">
                         <h3>Objective</h3>
@@ -649,7 +715,7 @@
                         <h4>Recuva</h4>
                         <p>This is a **file recovery** tool. It is used to find and recover *individual files* that have been deleted from a working partition. It's simple, user-friendly, and works by scanning for file system records that have been marked as "deleted".</p>
                         <h4>TestDisk</h4>
-                        <p>This is a **partition recovery** tool. It is a powerful, command-line-based tool used to fix *entire partitions* that have been deleted or corrupted. If your USB drive suddenly shows up as "Unallocated" or "RAW", TestDisk is the tool you use to find the lost partition table and re-write it.</p>
+                        <p>This is a **partition recovery** tool. It is a powerful, command-line-based tool used to fix *entire partitions* that have been deleted or corrupted. If your USB drive suddenly shows up as "Unallocated" or "RAW", TestDisk is the tool you use to find the lost partition table and re-write it. </p>
                     </div>
 
                     <h3>Detailed Procedure</h3>
@@ -702,7 +768,7 @@
             </details>
 
             <details>
-                <summary>Practical 10: Forensic Report Writing</summary>
+                <summary><i class="fas fa-file-invoice icon"></i>Practical 10: Forensic Report Writing</summary>
                 <div class="details-content">
                     <div class="objective-section">
                         <h3>Objective</h3>
@@ -759,7 +825,7 @@
                         </li>
                         <li><b>Appendices (Chain of Custody):</b>
                             <ul>
-                                <li>Include your **Chain of Custody** form.</li>
+                                <li>Include your **Chain of Custody** form. </li>
                             </ul>
                         </li>
                     </ol>
@@ -767,7 +833,7 @@
                     <h3>Key Concepts & Terms</h3>
                     <div class="key-concepts">
                         <ul>
-                            <li><b>Chain of Custody:</b> The *most important* concept in all of forensics. It is a log that documents *who* handled the evidence, *when* they handled it, *where* it was stored, and *why* they handled it. A broken CoC makes your evidence inadmissible. </li>
+                            <li><b>Chain of Custody:</b> The *most important* concept in all of forensics. It is a log that documents *who* handled the evidence, *when* they handled it, *where* it was stored, and *why* they handled it. A broken CoC makes your evidence inadmissible.</li>
                             <li><b>Indicators of Compromise (IOCs):</b> The "clues" of an attack. These are things like the attacker's IP, the hash of the malware file, or the phishing email's subject line.</li>
                             <li><b>Timeline Analysis:</b> The process of putting all the evidence in chronological order (using timestamps) to build a narrative of the attack.</li>
                         </ul>
@@ -787,7 +853,7 @@
         </div>
 
         <div class="github-link">
-            <a href="YOUR_GITHUB_REPO_URL_HERE" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/mannatgupta146/CCI-Lab-Practical.git" target="_blank" rel="noopener noreferrer">
                 ⭐ Star this repo on GitHub!
             </a>
         </div>
